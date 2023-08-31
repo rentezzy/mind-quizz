@@ -25,10 +25,12 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          darker: "hsl(var(--primary-darker))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          darker: "hsl(var(--secondary-darker))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -71,8 +73,8 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["Instrument Sans", "sans-serif"],
-        dela: ["Dela Gothic One", "cursive"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        dela: ["var(--font-dela)", "cursive"],
       },
     },
   },
