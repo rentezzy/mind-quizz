@@ -1,10 +1,6 @@
+import { SignInModal } from "@/components/common/SignInForm";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import graphic from "@/public/graphic.svg";
-import star from "@/public/star.svg";
-import man1 from "@/public/avatars/man1.jpg";
-import woman1 from "@/public/avatars/woman1.png";
-import woman2 from "@/public/avatars/woman2.jpg";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -12,27 +8,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Twitter, Instagram, Twitch } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import mainImage from "@/public/main_image.svg";
+import man1 from "@/public/avatars/man1.jpg";
+import woman1 from "@/public/avatars/woman1.png";
+import woman2 from "@/public/avatars/woman2.jpg";
+import graphic from "@/public/graphic.svg";
+import star from "@/public/star.svg";
+import { Instagram, Twitch, Twitter } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
       <main className="bg-primary-darker">
         <section className="container h-screen max-h-[800px] flex flex-col items-center justify-center gap-[30px]">
-          <Image width={200} height={200} src="/main_image.svg" alt="logo" />
+          <Image src={mainImage} alt="logo" className="w-[200px] h-[200px]" />
           <h1 className="text-background text-center font-dela text-[60px]">
             Unleash Your Brain
             <br />
             Power!
           </h1>
           <article className="flex gap-[20px]">
-            <Button variant="default" className="rounded-full text-[20px]">
-              Create Quiz
-            </Button>
-            <Button variant="secondary" className="rounded-full text-[20px]">
-              Take Quiz
+            <SignInModal>
+              <Button variant="default" className="rounded-full text-[20px]">
+                Create Quiz
+              </Button>
+            </SignInModal>
+            <Button
+              variant="secondary"
+              className="rounded-full text-[20px]"
+              asChild
+            >
+              <Link href="/quiz">Take Quiz</Link>
             </Button>
           </article>
         </section>
@@ -83,8 +92,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="container py-[100px] flex gap-[20px]">
-        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/3">
+      <section className="container py-[100px] flex gap-[20px] flex-wrap md:flex-nowrap">
+        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/3 md:basis-1/3 shrink">
           <CardHeader className="p-0">
             <CardTitle>
               <Avatar className="w-[50px] h-[50px]">
@@ -103,7 +112,7 @@ export default function Home() {
             <p>Samantha Carter</p>
           </CardFooter>
         </Card>
-        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/3">
+        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/2 md:basis-1/3 shrink">
           <CardHeader className="p-0">
             <CardTitle>
               <Avatar className="w-[50px] h-[50px]">
@@ -121,7 +130,7 @@ export default function Home() {
             <p>Michael Davis</p>
           </CardFooter>
         </Card>
-        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/3">
+        <Card className="h-[400px] p-[40px] flex flex-col gap-[40px] rounded-[20px] border-none basis-1/2 md:basis-1/3 shrink">
           <CardHeader className="p-0">
             <CardTitle>
               <Avatar className="w-[50px] h-[50px]">
@@ -172,8 +181,8 @@ export default function Home() {
           your learning potential.
         </p>
         <div>
-          <Button className="mr-[10px] bg-primary-darker rounded-[8px]">
-            Sign up
+          <Button className="mr-[10px] bg-primary-darker rounded-[8px]" asChild>
+            <Link href="/login">Sign up</Link>
           </Button>
           <Button className="rounded-[8px]">Learn more</Button>
         </div>

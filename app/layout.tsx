@@ -1,6 +1,13 @@
+"use client";
+import { app, auth, firestore } from "@/lib/firebase";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Dela_Gothic_One, Instrument_Sans } from "next/font/google";
+import {
+  AuthProvider,
+  FirebaseAppProvider,
+  FirestoreProvider,
+} from "reactfire";
 const dela = Dela_Gothic_One({
   weight: "400",
   subsets: ["latin"],
@@ -17,7 +24,6 @@ export const metadata: Metadata = {
   title: "Mind Quizz",
   description: "Mind Quizz app",
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -26,7 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.variable} ${dela.variable} ${sans.className}`}>
-        {children}
+        <FirebaseAppProvider firebaseApp={app}>
+          <AuthProvider sdk={auth}>
+            <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>
+          </AuthProvider>
+        </FirebaseAppProvider>
       </body>
     </html>
   );
