@@ -1,3 +1,4 @@
+import { Header } from "@/components/common/Header";
 import { Sidebar } from "@/components/common/Sidebar";
 
 export default function RootLayout({
@@ -8,6 +9,7 @@ export default function RootLayout({
   return (
     <main>
       <Sidebar />
+      <Header />
       {children}
     </main>
   );
