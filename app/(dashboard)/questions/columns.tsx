@@ -1,6 +1,6 @@
 "use client";
 
-import { QuestionInfo } from "@/components/common/QuestionInfo";
+import { QuestionInfo } from "@/components/question/QuestionInfo";
 import { Question, QuestionTypesVocab } from "@/types/question";
 import { ColumnDef } from "@tanstack/react-table";
 

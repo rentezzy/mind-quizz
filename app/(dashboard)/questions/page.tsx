@@ -1,6 +1,6 @@
 "use client";
 import { DataTable } from "@/components/common/DataTable";
-import { QuestionCreateModal } from "@/components/common/QuestionModal";
+import { QuestionCreateModal } from "@/components/question/QuestionModal";
 import { Button } from "@/components/ui/button";
 import { useQuestionsGet } from "@/hooks/firebase/question";
 import { columns } from "./columns";
