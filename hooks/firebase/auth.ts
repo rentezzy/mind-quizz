@@ -1,12 +1,9 @@
-import { useUser } from "reactfire";
-
 import {
   onAuthStateChanged,
   signInWithPopup,
   signOut as signOutFB,
 } from "firebase/auth";
 import { auth, provider } from "@/lib/firebase";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {

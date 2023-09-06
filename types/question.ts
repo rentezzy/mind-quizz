@@ -1,10 +1,11 @@
 export type Question = QuestionOneOfFour | QuestionText;
 export type QuestionBase = {
   title: string;
-  type: "one" | "text";
+  type: keyof typeof QuestionTypesVocab;
   text: string;
   author: string;
   points: number;
+  id: string;
 };
 export type QuestionText = {
   type: "text";
@@ -12,16 +13,15 @@ export type QuestionText = {
 } & QuestionBase;
 export type QuestionOneOfFour = {
   type: "one";
-  variants: [
-    OneOfFourAnswer,
-    OneOfFourAnswer,
-    OneOfFourAnswer,
-    OneOfFourAnswer
-  ];
-  answer: OneOfFourAnswer;
+  variants: [string, string, string, string];
+  answer: string;
 } & QuestionBase;
 
-type OneOfFourAnswer = {
+export type QuestionOneOfFourAnswer = {
   text: string;
   id: number;
+};
+export const QuestionTypesVocab = {
+  one: "One of Four",
+  text: "Text",
 };
