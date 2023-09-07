@@ -29,9 +29,9 @@ export const Sidebar = () => {
             <MyUser />
           </SheetTitle>
         </SheetHeader>
-        <SheetDescription className="flex gap-[10px] flex-col pl-[15px] mt-[20px] grow">
+        <nav className="flex gap-[10px] flex-col pl-[15px] mt-[20px] grow">
           <Navigation navLinks={links} />
-        </SheetDescription>
+        </nav>
         <SheetFooter>
           <LogOutButton />
         </SheetFooter>

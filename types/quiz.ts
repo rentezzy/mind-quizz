@@ -6,4 +6,5 @@ export type Quiz = {
   questions: string[];
   author: string;
   id: string;
+  points: number;
 };

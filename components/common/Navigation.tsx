@@ -13,7 +13,7 @@ export function Navigation({
 
   return (
     <>
-      {navLinks.map((link) => {
+      {navLinks.map((link, index) => {
         if (link.name === "") return <Separator />;
         const isActive = pathname === link.href;
 
@@ -23,7 +23,7 @@ export function Navigation({
               (isActive ? "text-primary" : "text-foreground") + " text-[20px]"
             }
             href={link.href}
-            key={link.name}
+            key={index}
           >
             {link.name}
           </Link>

@@ -1,5 +1,11 @@
+import { QuestionForm } from "@/components/quiz/QuizForm";
+
 const Quizzes = () => {
-  return <div>Quizzes</div>;
+  return (
+    <div>
+      <QuestionForm />
+    </div>
+  );
 };
 
 export default Quizzes;
