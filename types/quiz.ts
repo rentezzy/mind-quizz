@@ -8,3 +8,18 @@ export type Quiz = {
   id: string;
   points: number;
 };
+export type QuizSession = {
+  id: string;
+  active: boolean;
+  answers: QuizSessionAnswer[];
+} & (QuizSessionActive | QuizSessionDisabled);
+
+type QuizSessionActive = {
+  active: true;
+  code: string;
+};
+type QuizSessionDisabled = {
+  active: false;
+  code: null;
+};
+type QuizSessionAnswer = { name: string; answers: Record<string, string> };

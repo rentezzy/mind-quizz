@@ -46,7 +46,7 @@ const defaultValues: DefaultValues<QuizForm> = {
   questions: [],
 };
 
-export const QuestionForm = () => {
+export const QuizForm = () => {
   const form = useForm<QuizForm>({
     resolver: yupResolver(formSchema),
     defaultValues,

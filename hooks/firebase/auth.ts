@@ -1,9 +1,9 @@
+import { auth, provider } from "@/lib/firebase";
 import {
   onAuthStateChanged,
   signInWithPopup,
   signOut as signOutFB,
 } from "firebase/auth";
-import { auth, provider } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
@@ -13,7 +13,7 @@ export const useAuth = () => {
     if (!userCred) {
       return;
     }
-    const { isLogged } = await fetch("/api/login", {
+    const { isLogged } = await fetch("api/login", {
       method: "GET",
     }).then((data) => data.json());
 
