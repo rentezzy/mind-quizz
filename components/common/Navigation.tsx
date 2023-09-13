@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Navigation({
   navLinks,
@@ -14,7 +14,7 @@ export function Navigation({
   return (
     <>
       {navLinks.map((link, index) => {
-        if (link.name === "") return <Separator />;
+        if (link.name === "") return <Separator key={link.href} />;
         const isActive = pathname === link.href;
 
         return (

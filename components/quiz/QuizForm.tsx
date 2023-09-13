@@ -74,99 +74,97 @@ export const QuizForm = () => {
   });
 
   return (
-    <div className="container">
-      <Form {...form}>
-        <form onSubmit={onSubmit} className="space-y-4">
+    <Form {...form}>
+      <form onSubmit={onSubmit}>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem className="mb-4">
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Title..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex justify-between gap-[20px] min-h-[150px]">
           <FormField
             control={form.control}
-            name="title"
+            name="description"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
+              <FormItem className="grow h-[100%]">
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="Title..." {...field} />
+                  <Textarea placeholder="Description..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex justify-between gap-[20px] min-h-[150px]">
+          <div>
             <FormField
+              rules={{
+                min: Date.now(),
+                validate: (value) => "Start time must be in future.",
+                required: true,
+              }}
               control={form.control}
-              name="description"
+              name="startAt"
               render={({ field }) => (
-                <FormItem className="grow h-[100%]">
-                  <FormLabel>Description</FormLabel>
+                <FormItem>
+                  <FormLabel>Start time</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Description..." {...field} />
+                    <DateTimePicker
+                      date={field.value || new Date()}
+                      setDate={field.onChange}
+                      disabled={(date) => date < new Date()}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div>
-              <FormField
-                rules={{
-                  min: Date.now(),
-                  validate: (value) => "Start time must be in future.",
-                  required: true,
-                }}
-                control={form.control}
-                name="startAt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Start time</FormLabel>
-                    <FormControl>
-                      <DateTimePicker
-                        date={field.value || new Date()}
-                        setDate={field.onChange}
-                        disabled={(date) => date < new Date()}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endAt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>End time</FormLabel>
-                    <FormControl>
-                      <DateTimePicker
-                        date={field.value || new Date()}
-                        setDate={field.onChange}
-                        disabled={(date) => date <= startDate}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-          <FormField
-            control={form.control}
-            name="questions"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex justify-between">
-                  <FormLabel>Questions</FormLabel>
+            <FormField
+              control={form.control}
+              name="endAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>End time</FormLabel>
+                  <FormControl>
+                    <DateTimePicker
+                      date={field.value || new Date()}
+                      setDate={field.onChange}
+                      disabled={(date) => date <= startDate}
+                    />
+                  </FormControl>
                   <FormMessage />
-                </div>
-                <FormControl>
-                  <QuestionTable onSelect={setSelectedQuestions} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-[100%]">
-            Create!
-          </Button>
-        </form>
-      </Form>
-    </div>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+        <FormField
+          control={form.control}
+          name="questions"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex justify-between">
+                <FormLabel>Questions</FormLabel>
+                <FormMessage />
+              </div>
+              <FormControl>
+                <QuestionTable onSelect={setSelectedQuestions} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-[100%]">
+          Create!
+        </Button>
+      </form>
+    </Form>
   );
 };
 
@@ -189,12 +187,13 @@ const QuestionTable = ({
 }: {
   onSelect: (data: Question[]) => void;
 }) => {
-  const { data } = useQuestionsGet();
+  const { data, status } = useQuestionsGet();
   return (
     <DataTable
       columns={questionColumns}
       data={data || []}
       pages={5}
+      isLoading={status === "loading"}
       onSelect={onSelect}
     />
   );

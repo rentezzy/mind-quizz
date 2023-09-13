@@ -11,7 +11,7 @@ const matcher: Record<string, string> = {
 export const Header = () => {
   const path = usePathname();
   return (
-    <header className="w-screen h-[50px] border-b border-primary">
+    <header className="h-[50px] border-b border-primary">
       <div className="container grid items-center h-[100%]">
         <h2 className="text-[20px] text-secondary-darker">{matcher[path]}</h2>
       </div>

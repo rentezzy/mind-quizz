@@ -1,24 +1,8 @@
-"use client";
-import { app, auth, firestore } from "@/lib/firebase";
-import "./globals.css";
 import type { Metadata } from "next";
-import { Dela_Gothic_One, Instrument_Sans } from "next/font/google";
-import {
-  AuthProvider,
-  FirebaseAppProvider,
-  FirestoreProvider,
-} from "reactfire";
-const dela = Dela_Gothic_One({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-dela",
-  display: "swap",
-});
-const sans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
+import "./globals.css";
+
+import { Providers } from "@/lib/Providers";
+import { dela, sans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Mind Quizz",
@@ -32,11 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.variable} ${dela.variable} ${sans.className}`}>
-        <FirebaseAppProvider firebaseApp={app}>
-          <AuthProvider sdk={auth}>
-            <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>
-          </AuthProvider>
-        </FirebaseAppProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

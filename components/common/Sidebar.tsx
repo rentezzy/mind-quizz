@@ -1,11 +1,10 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  SheetTrigger
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { LogOutButton } from "./LogOut";
@@ -13,7 +12,7 @@ import { Navigation } from "./Navigation";
 import { MyUser } from "./User";
 const links = [
   { href: "/overview", name: "Dashboard" },
-  { href: "/", name: "" },
+  { href: "/separator1", name: "" },
   { href: "/quizzes", name: "Quizzes" },
   { href: "/questions", name: "Questions" },
 ];

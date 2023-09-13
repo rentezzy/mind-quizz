@@ -6,7 +6,7 @@ import { useQuestionsGet } from "@/hooks/firebase/question";
 import { columns } from "./columns";
 
 const Questions = () => {
-  const { data } = useQuestionsGet();
+  const { data, status } = useQuestionsGet();
   return (
     <div className="container space-y-2 mt-2">
       <div className="flex justify-between">
@@ -16,7 +16,11 @@ const Questions = () => {
         </QuestionCreateModal>
       </div>
       <div>
-        <DataTable columns={columns} data={data || []} />
+        <DataTable
+          columns={columns}
+          data={data || []}
+          isLoading={status === "loading"}
+        />
       </div>
     </div>
   );
