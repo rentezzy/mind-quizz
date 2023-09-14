@@ -50,6 +50,18 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({}, { status: 200 });
 }
 
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const code = searchParams.get("code");
+  const session = quizzesSession.find((item) => item.code === code);
+  console.log(code);
+  if (!session)
+    return NextResponse.json({ message: "Wrong code!" }, { status: 400 });
+  const quiz = quizzes.find((quiz) => quiz.id === session.id);
+
+  return NextResponse.json({ session, quiz }, { status: 200 });
+}
+
 const sessionChange = async (id: string, active: boolean) => {
   const doc = quizzesSession.find((item) => item.id === id);
   if (!doc || doc.active === active) return;

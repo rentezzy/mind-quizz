@@ -1,5 +1,5 @@
 import { assignTypes } from "@/lib/typeAssign";
-import { Quiz, QuizSession } from "@/types/quiz";
+import { Quiz } from "@/types/quiz";
 import {
   addDoc,
   collection,
