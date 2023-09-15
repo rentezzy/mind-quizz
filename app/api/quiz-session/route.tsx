@@ -7,7 +7,14 @@ import { NextRequest, NextResponse } from "next/server";
 customInitApp();
 
 let quizzes: Quiz[] = [];
-let quizzesSession: QuizSession[] = [];
+let quizzesSession: QuizSession[] = [
+  {
+    active: true,
+    answers: [],
+    code: "hma-blck-doa",
+    id: "kGynlHenEC32FJIYaF8I",
+  },
+];
 
 // firestore()
 //   .collection("mindquiz-quizzes")

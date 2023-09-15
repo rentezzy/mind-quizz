@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useGetQuizSession } from "@/hooks/api/quiz-session";
+import { useStartQuizSession } from "@/hooks/api/quiz-session";
 import { useCodeField } from "@/hooks/useCodeField";
 import { useUsernameField } from "@/hooks/useUsernameField";
 
 const QuizComplete = () => {
   const { username, setUsername, isAuth } = useUsernameField();
   const { code, setCode } = useCodeField();
-  const { isError, mutate } = useGetQuizSession(true);
+  const { isError, mutate } = useStartQuizSession();
 
   return (
     <div className="bg-primary h-screen flex items-center justify-center">
@@ -61,7 +61,7 @@ const QuizComplete = () => {
             variant="secondary"
             className="text-white w-full"
             onClick={() => {
-              mutate(code);
+              mutate({ code, username });
             }}
           >
             Start quiz!
