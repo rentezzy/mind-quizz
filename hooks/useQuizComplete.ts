@@ -2,10 +2,10 @@ import { useQuizStore } from "@/app/quiz/store";
 import { useGetQuizSession } from "./api/quiz-session";
 import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export const useQuizComplete = () => {
-  const { username, setCode, setUsername } = useQuizStore();
+  const { code, username, setCode, setUsername } = useQuizStore();
   const router = useRouter();
   const [startAt, setStartAt] = useState(DateTime.now());
   const [endAt, setEndAt] = useState<DateTime | null>(null);
@@ -35,15 +35,27 @@ export const useQuizComplete = () => {
       startAt,
       endAt,
     };
-    fetch(`/api/quiz?quiz=${quiz}`, {
-      method: "POST",
-      body: JSON.stringify(quizAnswer),
-    }).then(() => {
-      router.push("/quiz");
+    const postFinish = async () => {
+      await fetch(`/api/quiz?quiz=${quiz}`, {
+        method: "POST",
+        body: JSON.stringify(quizAnswer),
+      });
       setCode(null);
       setUsername(null);
-    });
-  }, [isEnded, data]);
+      router.replace("/quiz");
+    };
+    postFinish();
+  }, [
+    isEnded,
+    data,
+    answers,
+    endAt,
+    router,
+    setCode,
+    setUsername,
+    startAt,
+    username,
+  ]);
   if (!data || "message" in data) return;
 
   const addAnswer = (answer: string) => {
@@ -68,29 +80,5 @@ export const useQuizComplete = () => {
     isEnded,
     currentQuestion,
   };
-  console.log(finish);
   return { addAnswer, isEnded, currentQuestion };
 };
-/*
-1. Quiz started:
-  { 
-    username,
-    answers:{}
-    sTime:time.
-    eTime:null,
-  } + currQuestion = qid.
-
-2. Answer added:
-  { 
-    username,
-    answers:{
-      qid:answer,
-    }
-    sTime:time.
-    eTime:null,
-  } + currQuestion = qid.
-3. Quiz ended:{
-
-}
-
-*/
