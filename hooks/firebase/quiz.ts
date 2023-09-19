@@ -26,7 +26,7 @@ export const useQuizCreate = () => {
         setDoc(doc(firestore, SESSION_COLLECTION, data.id), {
           code: null,
           active: false,
-          answers: {},
+          answers: [],
         });
       });
     },

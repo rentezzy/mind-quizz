@@ -15,7 +15,7 @@ export const useStartQuizSession = () => {
       code: string;
       username: string;
     }) => {
-      const res = await fetch(`api/quiz-session?code=${code}`);
+      const res = await fetch(`/api/quiz-session?code=${code}`);
       if (res.status === 400) {
         throw new Error("Wrong code!");
       }
@@ -35,11 +35,12 @@ export const useGetQuizSession = () => {
       if (!code) {
         throw new Error("No code provided!");
       }
-      const res = await fetch(`api/quiz-session?code=${code}`);
+      const res = await fetch(`/api/quiz-session?code=${code}`);
       if (res.status === 400) {
         throw new Error("Wrong code!");
       }
       return (await res.json()) as Promise<QuizSessionResponse>;
     },
+    queryKey: [code],
   });
 };

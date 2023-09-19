@@ -1,20 +1,28 @@
 "use client";
 
+import { useGetQuestion } from "@/hooks/api/question";
 import { useGetQuizSession } from "@/hooks/api/quiz-session";
-import { useQuizStore } from "../store";
+import { useQuizComplete } from "@/hooks/useQuizComplete";
 import { notFound } from "next/navigation";
+import { useQuizStore } from "../store";
+import { QuizQuestion } from "./QuizQuestion";
 
 const QuizStart = ({ params }: { params: { code: string } }) => {
-  const { username, code, setCode } = useQuizStore();
+  const { username } = useQuizStore();
   const { isError } = useGetQuizSession();
+  const quiz = useQuizComplete();
+  const { data } = useGetQuestion(quiz?.currentQuestion || null);
   if (!username || isError) {
     notFound();
   }
+  if (!quiz) return <p>loading</p>;
   return (
     <div>
-      <p>{params.code}</p>
-      <p>{username || "placeholder"}</p>
-      <p>{code}</p>
+      <QuizQuestion
+        quid={quiz.currentQuestion}
+        addAnswer={quiz.addAnswer}
+        isEnded={quiz.isEnded}
+      />
     </div>
   );
 };

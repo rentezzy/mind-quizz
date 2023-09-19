@@ -7,34 +7,27 @@ import { NextRequest, NextResponse } from "next/server";
 customInitApp();
 
 let quizzes: Quiz[] = [];
-let quizzesSession: QuizSession[] = [
-  {
-    active: true,
-    answers: [],
-    code: "hma-blck-doa",
-    id: "kGynlHenEC32FJIYaF8I",
-  },
-];
+let quizzesSession: QuizSession[] = [];
 
-// firestore()
-//   .collection("mindquiz-quizzes")
-//   .onSnapshot((docs) => {
-//     const total: Quiz[] = [];
-//     docs.forEach((doc) => {
-//       total.push({ ...doc.data(), id: doc.id } as Quiz);
-//     });
-//     quizzes = [...total];
-//   });
+firestore()
+  .collection("mindquiz-quizzes")
+  .onSnapshot((docs) => {
+    const total: Quiz[] = [];
+    docs.forEach((doc) => {
+      total.push({ ...doc.data(), id: doc.id } as Quiz);
+    });
+    quizzes = [...total];
+  });
 
-// firestore()
-//   .collection("mindquiz-quiz-sessions")
-//   .onSnapshot((docs) => {
-//     const total: QuizSession[] = [];
-//     docs.forEach((doc) => {
-//       total.push({ ...doc.data(), id: doc.id } as QuizSession);
-//     });
-//     quizzesSession = [...total];
-//   });
+firestore()
+  .collection("mindquiz-quiz-sessions")
+  .onSnapshot((docs) => {
+    const total: QuizSession[] = [];
+    docs.forEach((doc) => {
+      total.push({ ...doc.data(), id: doc.id } as QuizSession);
+    });
+    quizzesSession = [...total];
+  });
 
 export async function POST(request: NextRequest) {
   for (let quiz of quizzes) {
@@ -61,7 +54,6 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const session = quizzesSession.find((item) => item.code === code);
-  console.log(code);
   if (!session)
     return NextResponse.json({ message: "Wrong code!" }, { status: 400 });
   const quiz = quizzes.find((quiz) => quiz.id === session.id);

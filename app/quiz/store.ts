@@ -10,6 +10,8 @@ interface QuizState {
 export const useQuizStore = create<QuizState>()((set) => ({
   code: null,
   username: null,
-  setCode: (code: string) => set(() => ({ code: code })),
-  setUsername: (un: string) => set(() => ({ username: un })),
+  startAt: null,
+  endAt: null,
+  setCode: (code: string | null) => set(() => ({ code: code })),
+  setUsername: (un: string | null) => set(() => ({ username: un })),
 }));
