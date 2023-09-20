@@ -160,7 +160,7 @@ export const QuizForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-[100%]">
+        <Button type="submit" className="w-[100%] mt-2">
           Create!
         </Button>
       </form>
